@@ -1,19 +1,38 @@
+.btn-area {
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: space-around;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
 .btn{
   display: inline-block;
   text-decoration: none;
-  background: #ff8181;
   color: #FFF;
   width: 120px;
   height: 120px;
   line-height: 120px;
   border-radius: 50%;
   text-align: center;
+  font-size: 32px;
   font-weight: bold;
   vertical-align: middle;
   overflow: hidden;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-  border-bottom: solid 3px #bd6565;
   transition: .4s;
+}
+
+.red {
+  background: #f11d1d;
+  border-bottom: #f11d1d42;
+}
+
+.blue {
+  background: #4d34db;
+  border-bottom: #160f42;
 }
 
 .btn:active{

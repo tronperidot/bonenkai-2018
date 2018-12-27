@@ -8,6 +8,7 @@ import { StartSlideComponent } from './start-slide/start-slide.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StopSlideComponent } from './stop-slide/stop-slide.component';
 import { TopComponent } from './top/top.component';
+import { SwitchSlideComponent } from './switch-slide/switch-slide.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TopComponent } from './top/top.component';
     SlideComponent,
     StartSlideComponent,
     StopSlideComponent,
-    TopComponent
+    TopComponent,
+    SwitchSlideComponent,
   ],
   imports: [
     BrowserModule,
