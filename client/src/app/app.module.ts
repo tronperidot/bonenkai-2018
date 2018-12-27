@@ -5,15 +5,21 @@ import { AppComponent } from './app.component';
 import { SlideComponent } from './slide/slide.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { StartSlideComponent } from './start-slide/start-slide.component';
+import { HttpClientModule } from '@angular/common/http';
+import { StopSlideComponent } from './stop-slide/stop-slide.component';
+import { TopComponent } from './top/top.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SlideComponent,
-    StartSlideComponent
+    StartSlideComponent,
+    StopSlideComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

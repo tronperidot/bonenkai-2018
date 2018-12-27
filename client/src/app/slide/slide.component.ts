@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, switchMap } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { ShuffleService, Status } from '../shuffle.service';
 
 const themaSet = ['light-theme', 'dark-theme'];
 
@@ -11,10 +12,10 @@ interface SlideThema {
 }
 
 const THEMA_PRESET: SlideThema[] = [
-  { style: 'yellow-theme', message: '今年一年めっちゃお世話になりました話' } as SlideThema,
+  { style: 'blue-theme', message: '今年一年めっちゃお世話になりました話' } as SlideThema,
   { style: 'red-theme', message: 'BBGのここが好き話' } as SlideThema,
   { style: 'orange-theme', message: '自分を褒めてあげたい・褒められたい話' } as SlideThema,
-  { style: 'blue-theme', message: '当たり目（自由）' } as SlideThema,
+  { style: 'yellow-theme', message: '当たり目（自由）' } as SlideThema,
   { style: 'purple-theme', message: 'これだけは話さないと年越せない話' } as SlideThema,
   { style: 'green-theme', message: 'どうでもいい話' } as SlideThema,
 ]
@@ -28,15 +29,16 @@ export class SlideComponent implements OnInit {
   message: string;
   thema: string = themaSet[0];
   cacheDate: SlideThema = THEMA_PRESET[0];
-  shuffle: boolean = false;
-  constructor() { }
+  constructor(
+    private service: ShuffleService
+  ) { }
 
   ngOnInit() {
-    let i = 0;
-    this.themaSet(THEMA_PRESET[0]);
+    this.themaSet(this.cacheDate);
     interval(50)
       .pipe(
-        filter(() => this.shuffle),
+        switchMap(() => this.service.getStatus()),
+        filter((status: Status) => status.shuffle),
         map(() => this.pickupThema()))
       .subscribe((thema: SlideThema) => {
         this.themaSet(thema);
@@ -44,17 +46,9 @@ export class SlideComponent implements OnInit {
     
   }
 
-  start() {
-    this.shuffle = true;
-  }
-
-  stop() {
-    this.shuffle = false;
-  }
-
   private pickupThema(): SlideThema {
     return _.chain(THEMA_PRESET)
-      .filter((thema) => thema !== this.cacheDate)
+      .filter((thema: SlideThema) => thema !== this.cacheDate)
       .sample()
       .value();
   }
